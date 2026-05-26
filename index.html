@@ -1182,9 +1182,27 @@
       /* Reservations: single column */
       .res-cta-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 
-      /* Hero */
-      .hero-content { bottom: 6rem; padding: 0 1.5rem; }
-      .hero-logo { width: min(200px, 52vw); height: min(200px, 52vw); }
+      /* Hero: stack logo + content vertically, no overlap */
+      .hero-logo-wrap {
+        position: relative;
+        top: auto; left: auto;
+        transform: none;
+        width: auto; height: auto;
+        pointer-events: auto;
+        margin-bottom: 2rem;
+      }
+      .hero-logo { width: 200px; height: 200px; }
+      .hero-content {
+        position: relative;
+        bottom: auto; left: auto;
+        transform: none;
+        padding: 0 1.5rem 4rem;
+      }
+      #hero {
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-top: 100px;
+      }
 
       /* Footer */
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
