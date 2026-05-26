@@ -145,6 +145,8 @@
       border: 1px solid rgba(255,255,255,0.45);
       border-radius: 100px;
       padding: 0.3rem;
+      width: fit-content;
+      margin: 0 auto;
     }
     .nav-pills a {
       display: block;
@@ -1066,6 +1068,14 @@
       filter: saturate(0.85) brightness(0.9);
     }
 
+    /* ─── Reservations CTA grid ─── */
+    .res-cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
     /* ─── Mini Gallery ─── */
     #mini-gallery {
       padding: 6rem 0;
@@ -1144,12 +1154,57 @@
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .map-wrap iframe { height: 360px; }
     }
-    @media (max-width: 600px) {
+
+    @media (max-width: 700px) {
+      /* Nav: hide pill nav, keep logo + CTA */
+      .nav-pills { display: none; }
+      nav { grid-template-columns: auto auto; justify-content: space-between; }
+      nav .nav-cta { font-size: 0.62rem; padding: 0.5rem 1rem; }
+
+      /* Reduce section padding */
+      #menu, #reviews, #location, #mini-gallery { padding: 5rem 0; }
+      #reservations { padding: 5rem 0 !important; }
+      footer { padding: 3.5rem 0 1.5rem; }
+
+      /* Menu 1-col */
       .menu-grid { grid-template-columns: 1fr; }
+
+      /* Reviews 1-col */
       .reviews-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .hero-title { font-size: clamp(3.5rem, 16vw, 6rem); }
+      .reviews-score-band { padding: 2rem 1.5rem; }
+
+      /* Location: stack, shorter map */
+      .location-grid { gap: 2.5rem; }
+      .map-wrap iframe { height: 280px; }
+
+      /* Reservations: single column */
+      .res-cta-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      /* Hero */
+      .hero-content { bottom: 6rem; padding: 0 1.5rem; }
+      .hero-logo { width: min(200px, 52vw); height: min(200px, 52vw); }
+
+      /* Footer */
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+      /* Mini gallery: tighter */
+      .mini-gallery-grid { gap: 4px; }
+      .mini-gallery-actions { flex-direction: row; gap: 0.75rem; }
+      .btn-social { padding: 0.75rem 1.4rem; font-size: 0.68rem; }
+    }
+
+    @media (max-width: 480px) {
+      .section-title { font-size: clamp(2rem, 8vw, 2.8rem); }
+      #reservations .section-inner > div > div:last-child { padding: 2.5rem 1.75rem !important; }
+      .menu-card-body { padding: 1.25rem 1.25rem 1.75rem; }
+      .menu-header { margin-bottom: 3rem; }
+      .reviews-header { margin-bottom: 3rem; }
+      .reviews-score-band { margin-bottom: 3rem; }
+      .location-info-cards { gap: 1rem; }
+      .location-card { padding: 1.25rem 1.25rem; }
     }
   </style>
 </head>
@@ -1207,11 +1262,10 @@
     </svg>
 
     <div class="hero-content">
-      <p class="hero-eyebrow">Santo Domingo, República Dominicana</p>
-      <p class="hero-subtitle">Mariscos de primera — donde el mar llega a tu mesa</p>
+      <p class="hero-subtitle">Especialidad en comida Española e Internacional "Desde 1975"</p>
       <div class="hero-actions">
-        <a href="#menu" class="btn-primary">Ver Menú</a>
-        <a href="#reservations" class="btn-outline">Hacer Reserva</a>
+        <a href="#menu" class="btn-outline">Ver Menú</a>
+        <a href="#reservations" class="btn-primary">Hacer Reserva</a>
       </div>
     </div>
 
@@ -1232,12 +1286,12 @@
 
         <div class="menu-card">
           <div class="menu-card-img">
-            <img src="images/Platos/Paella.jpg" alt="Paella de Carne" loading="lazy" />
+            <img src="images/Platos/Paella.jpg" alt="Paella de Mariscos" loading="lazy" />
           </div>
           <div class="menu-card-body">
             <p class="menu-card-tag">Para compartir</p>
-            <h3 class="menu-card-name">Paella de Carne</h3>
-            <p class="menu-card-desc">Arroz rojo al estilo Boga con skirt steak a la chimichurri, chorizo ibérico, tocino y pimientos asados. Un plato pensado para compartir y nunca olvidar.</p>
+            <h3 class="menu-card-name">Paella de Mariscos</h3>
+            <p class="menu-card-desc">Arroz bomba al estilo Boga con langostinos, mejillones, calamares y almejas, todo cocinado en un fondo de azafrán y mariscos frescos. Un plato pensado para compartir y nunca olvidar.</p>
           </div>
         </div>
 
@@ -1319,12 +1373,12 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <p class="review-card-text">Una experiencia gastronómica verdaderamente memorable. La langosta estaba perfectamente preparada y el ambiente náutico crea una atmósfera única en Santo Domingo. Volveremos sin duda.</p>
+          <p class="review-card-text">Una paella de mariscos única y espectacular, sin olvidar el pulpo a la parrilla y el carpaccio de salmón... con la excepción de los calamares fritos y el ceviche, todo lo demás fue excepcional y delicioso.</p>
           <div class="review-card-author">
-            <div class="review-avatar">M</div>
+            <div class="review-avatar">K</div>
             <div>
-              <div class="review-name">María González</div>
-              <div class="review-source">Google · hace 2 semanas</div>
+              <div class="review-name">Karl de Borbón</div>
+              <div class="review-source">Google · Guía local · 407 reseñas</div>
             </div>
           </div>
         </div>
@@ -1337,12 +1391,12 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <p class="review-card-text">El mejor restaurante de mariscos que he visitado en el Caribe. Los camarones al ajillo son extraordinarios, y el servicio es de primer nivel. El personal hace que cada visita sea especial.</p>
+          <p class="review-card-text">Un restaurante de estilo español. Pedimos ceviche y carpaccio de bacalao como entrantes. El carpaccio estaba riquísimo. Disfrutamos de la paella de carne y la paella de marisco. Ambas estaban muy buenas y sobró bastante para llevar a casa.</p>
           <div class="review-card-author">
-            <div class="review-avatar">J</div>
+            <div class="review-avatar">B</div>
             <div>
-              <div class="review-name">James Richardson</div>
-              <div class="review-source">Google · hace 1 mes</div>
+              <div class="review-name">Brad Bullough</div>
+              <div class="review-source">Google · Guía local · 401 reseñas</div>
             </div>
           </div>
         </div>
@@ -1353,14 +1407,14 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor" style="opacity:0.45;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <p class="review-card-text">Vine para celebrar nuestro aniversario y superó todas las expectativas. La paella del mar para dos personas fue increíble. El ambiente es elegante sin perder la calidez caribeña.</p>
+          <p class="review-card-text">Boga Boga fue fantástico en todos los sentidos. Fuimos allí para el cumpleaños de mi prometida y el servicio fue excelente, lo que se espera de un restaurante de cinco estrellas. Cada plato que pedimos (alcachofas, jamón, champiñones y tinta de calamar) estaba delicioso.</p>
           <div class="review-card-author">
-            <div class="review-avatar">S</div>
+            <div class="review-avatar">C</div>
             <div>
-              <div class="review-name">Sofia Martínez</div>
-              <div class="review-source">Facebook · hace 3 semanas</div>
+              <div class="review-name">Colin Clayton</div>
+              <div class="review-source">Google · 5 reseñas</div>
             </div>
           </div>
         </div>
@@ -1485,7 +1539,7 @@
     </svg>
 
     <div class="section-inner" style="position:relative;z-index:1;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;">
+      <div class="res-cta-grid">
 
         <!-- Left: copy -->
         <div>
