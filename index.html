@@ -4,7 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'none';">
+
   <title>Boga Boga — Mariscos & Mar</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Boga Boga — Especialidad Española & Internacional">
+  <meta property="og:description" content="Restaurante Boga Boga, especialidad en comida Española e Internacional desde 1975. Ave. Bolivar #203, Santo Domingo.">
+  <meta property="og:image" content="https://bogaboga.vercel.app/images/HeroBoga.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bogaboga.vercel.app/images/HeroBoga.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./images/LOGO PNG.png">
+  <link rel="apple-touch-icon" href="./images/LOGO PNG.png">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +28,6 @@
 
   <style>
     :root {
-      /* Logo-accurate brand palette */
       --navy:       #0a1628;
       --navy-2:     #0f1f3a;
       --navy-3:     #162a50;
@@ -23,7 +38,6 @@
       --red-2:      #e03030;
       --cream:      #f5f0e8;
       --warm-mid:   #0d1e35;
-      /* kept for footer / wood strip */
       --mahogany:   #0a1628;
       --mahogany-2: #0f1f3a;
     }
@@ -37,7 +51,7 @@
       overflow-x: hidden;
     }
 
-    /* Grain texture */
+    /* Grain texture — fixed, pointer-events-none, no repaint on scroll */
     body::before {
       content: '';
       position: fixed;
@@ -49,6 +63,29 @@
     }
 
     .font-display { font-family: 'Cormorant Garamond', serif; }
+
+    /* ─── Hero animations ─── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-anim > * {
+        opacity: 0;
+        animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .hero-anim .hero-eyebrow-el  { animation-delay: 0.1s; }
+      .hero-anim .hero-subtitle    { animation-delay: 0.25s; }
+      .hero-anim .hero-actions     { animation-delay: 0.4s; }
+      .hero-logo-wrap {
+        opacity: 0;
+        animation: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+      }
+    }
 
     /* ─── Brass rule ─── */
     .brass-rule {
@@ -89,6 +126,12 @@
       background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%);
       pointer-events: none;
       z-index: 2;
+    }
+    .porthole img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     /* ─── Nav ─── */
@@ -135,7 +178,7 @@
       line-height: 1.1;
       display: none;
     }
-    .nav-logo-img.broken + .nav-logo-text { display: block; }
+
     /* Centered pill nav */
     .nav-pills {
       display: flex;
@@ -143,7 +186,7 @@
       gap: 0.25rem;
       list-style: none;
       background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 100px;
       padding: 0.3rem;
       width: fit-content;
@@ -155,7 +198,7 @@
       font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #fff;
+      color: rgba(255,255,255,0.75);
       text-decoration: none;
       padding: 0.45rem 1.2rem;
       border-radius: 100px;
@@ -164,6 +207,7 @@
     .nav-pills a:hover { background: rgba(232,105,10,0.18); color: #fff; }
     .nav-pills a.active { background: #ffffff; color: var(--navy); }
     .nav-pills a:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
     .nav-cta {
       font-size: 0.68rem;
       font-weight: 600;
@@ -179,13 +223,12 @@
       white-space: nowrap;
     }
     .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
-    .nav-cta:active { transform: translateY(0); }
-    .nav-cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .nav-cta:active { transform: translateY(0) scale(0.98); }
     .nav-cta:focus-visible { outline: 2px solid var(--orange-2); outline-offset: 3px; }
 
     /* ─── Hero ─── */
     #hero {
-      min-height: 100vh;
+      min-height: 100dvh;
       position: relative;
       display: flex;
       align-items: center;
@@ -212,7 +255,6 @@
         linear-gradient(to bottom, rgba(10,22,40,0.55) 0%, rgba(10,22,40,0.25) 40%, rgba(10,22,40,0.75) 85%, rgba(10,22,40,1) 100%),
         linear-gradient(to right, rgba(10,22,40,0.4) 0%, transparent 50%);
     }
-    /* Warm crimson tint layer */
     .hero-tint {
       position: absolute;
       inset: 0;
@@ -238,21 +280,11 @@
       from { transform: translate(-50%,-50%) rotate(0deg); }
       to   { transform: translate(-50%,-50%) rotate(360deg); }
     }
-
-    .hero-content {
-      position: absolute;
-      bottom: 8rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      text-align: center;
-      width: 100%;
-      max-width: 820px;
-      padding: 0 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    @media (prefers-reduced-motion: reduce) {
+      .hero-bg-img { animation: none; transform: scale(1); }
+      .compass-rose { animation: none; }
     }
+
     .hero-logo-wrap {
       position: absolute;
       top: 50%;
@@ -275,64 +307,49 @@
       box-shadow: 0 0 60px rgba(0,0,0,0.7), 0 0 0 3px rgba(255,255,255,0.12);
       pointer-events: auto;
     }
-    .hero-eyebrow {
+
+    .hero-content {
+      position: absolute;
+      bottom: 8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      text-align: center;
+      width: 100%;
+      max-width: 820px;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-eyebrow-el {
       font-size: 0.68rem;
       font-weight: 500;
       letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: #ffffff;
-      margin-bottom: 1.25rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 1rem;
     }
-    .hero-eyebrow::before,
-    .hero-eyebrow::after {
+    .hero-eyebrow-el::before,
+    .hero-eyebrow-el::after {
       content: '';
       width: 40px;
       height: 1px;
-      background: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.3);
     }
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(5rem, 10vw, 9.5rem);
-      font-weight: 700;
-      line-height: 0.88;
-      letter-spacing: -0.02em;
-      color: #28228B;
-      text-shadow: 0 2px 40px rgba(0,0,0,0.6), 0 0 80px rgba(10,30,80,0.4);
-      margin-bottom: 0.4rem;
-    }
-    .hero-title em {
-      font-style: italic;
-      color: #28228B;
-    }
-    .hero-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      margin: 1.5rem auto;
-      color: var(--orange);
-    }
-    .hero-divider span { width: 4px; height: 4px; border-radius: 50%; background: var(--orange); display: block; }
-    .hero-divider::before,
-    .hero-divider::after {
-      content: '';
-      width: 80px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--orange));
-    }
-    .hero-divider::after { background: linear-gradient(to left, transparent, var(--orange)); }
     .hero-subtitle {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.1rem, 2vw, 1.45rem);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
       font-weight: 300;
       font-style: italic;
-      color: rgba(247,242,234,0.6);
-      margin-bottom: 3rem;
-      letter-spacing: 0.04em;
+      color: rgba(247,242,234,0.65);
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.03em;
+      line-height: 1.5;
     }
     .hero-actions {
       display: flex;
@@ -352,10 +369,12 @@
       border-radius: 2px;
       transition: opacity 0.2s ease, transform 0.2s cubic-bezier(.34,1.56,.64,1);
       box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      white-space: nowrap;
     }
     .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:active { transform: translateY(0) scale(0.98); }
     .btn-primary:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
     .btn-outline {
       font-size: 0.72rem;
       font-weight: 500;
@@ -367,13 +386,14 @@
       text-decoration: none;
       border-radius: 2px;
       transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s cubic-bezier(.34,1.56,.64,1);
+      white-space: nowrap;
     }
     .btn-outline:hover {
       border-color: #fff;
       background: rgba(255,255,255,0.12);
       transform: translateY(-2px);
     }
-    .btn-outline:active { transform: translateY(0); }
+    .btn-outline:active { transform: translateY(0) scale(0.98); }
     .btn-outline:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
     /* Scroll indicator */
@@ -387,10 +407,6 @@
       flex-direction: column;
       align-items: center;
       gap: 0.6rem;
-      color: rgba(232,105,10,0.5);
-      font-size: 0.6rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
     }
     .scroll-line {
       width: 1px;
@@ -402,18 +418,8 @@
       0%, 100% { opacity: 0.35; transform: scaleY(1); }
       50% { opacity: 1; transform: scaleY(1.08); }
     }
-
-    /* ─── Wave transition ─── */
-    .wave-divider {
-      position: relative;
-      height: 80px;
-      overflow: hidden;
-      background: var(--navy);
-    }
-    .wave-divider svg {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-line { animation: none; opacity: 0.5; }
     }
 
     /* ─── Section base ─── */
@@ -447,107 +453,6 @@
       margin: 1.5rem 0;
     }
 
-    /* ─── About ─── */
-    #about {
-      padding: 9rem 0;
-      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 60%, var(--warm-mid) 100%);
-    }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7rem;
-      align-items: center;
-    }
-    .about-text p {
-      font-size: 1.05rem;
-      line-height: 1.9;
-      color: rgba(247,242,234,0.68);
-      margin-bottom: 1.5rem;
-    }
-    .about-stats {
-      display: flex;
-      gap: 3rem;
-      margin-top: 2.5rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(232,105,10,0.15);
-    }
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3.2rem;
-      font-weight: 300;
-      color: var(--orange-2);
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(247,242,234,0.4);
-      margin-top: 0.3rem;
-    }
-    .about-images {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      align-items: start;
-    }
-    .about-images .porthole:first-child {
-      grid-column: 1 / -1;
-      max-width: 300px;
-      margin: 0 auto 0.5rem;
-    }
-    .about-images .porthole.small {
-      max-width: 148px;
-    }
-    .about-images .porthole.small:last-child {
-      margin-left: auto;
-    }
-    .porthole img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* ─── Red accent strip ─── */
-    .crimson-strip {
-      background: linear-gradient(135deg, var(--red) 0%, var(--red-2) 100%);
-      padding: 3.5rem 0;
-      border-top: 1px solid rgba(232,105,10,0.15);
-      border-bottom: 1px solid rgba(232,105,10,0.15);
-      overflow: hidden;
-      position: relative;
-    }
-    .crimson-strip::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.05;
-    }
-    .strip-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      text-align: center;
-    }
-    .strip-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--cream);
-      line-height: 1.4;
-      letter-spacing: 0.01em;
-    }
-    .strip-attr {
-      font-size: 0.68rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(247,242,234,0.5);
-      margin-top: 1.25rem;
-    }
-
     /* ─── Menu ─── */
     #menu {
       padding: 9rem 0;
@@ -572,7 +477,9 @@
       background: var(--navy-2);
       overflow: hidden;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
+    .menu-card:hover { background: var(--navy-3); }
     .menu-card-img {
       position: relative;
       aspect-ratio: 4/3;
@@ -628,226 +535,6 @@
       font-size: 0.82rem;
       line-height: 1.75;
       color: rgba(247,242,234,0.5);
-    }
-    .menu-card-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--orange-2);
-      margin-top: 1.1rem;
-    }
-
-    /* ─── Gallery ─── */
-    #gallery {
-      padding: 9rem 0 0;
-      background: var(--navy);
-    }
-    .gallery-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-    .gallery-mosaic {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 4px;
-    }
-    .g-item {
-      overflow: hidden;
-      position: relative;
-    }
-    .g-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(0.85) brightness(0.82);
-      transition: transform 0.65s cubic-bezier(.25,.46,.45,.94), filter 0.4s ease;
-    }
-    .g-item:hover img { transform: scale(1.05); filter: saturate(1) brightness(0.95); }
-    .g-item::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,22,40,0.55) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    .g-item::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: rgba(232,105,10,0.05);
-      mix-blend-mode: multiply;
-      pointer-events: none;
-    }
-    .g1 { grid-column: 1 / 7;  aspect-ratio: 16/10; }
-    .g2 { grid-column: 7 / 10; aspect-ratio: 3/4; }
-    .g3 { grid-column: 10 / 13; aspect-ratio: 3/4; }
-    .g4 { grid-column: 1 / 4;  aspect-ratio: 3/4; }
-    .g5 { grid-column: 4 / 8;  aspect-ratio: 4/3; }
-    .g6 { grid-column: 8 / 13; aspect-ratio: 16/10; }
-
-    /* ─── Reservations ─── */
-    #reservations {
-      padding: 9rem 0;
-      background:
-        radial-gradient(ellipse 60% 80% at 50% 100%, rgba(74,26,12,0.5) 0%, transparent 70%),
-        var(--mahogany-2);
-    }
-    .res-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: start;
-    }
-    .res-info p {
-      font-size: 1rem;
-      line-height: 1.9;
-      color: rgba(247,242,234,0.6);
-      margin-bottom: 2rem;
-    }
-    .res-detail {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      margin-bottom: 1.75rem;
-    }
-    .res-icon {
-      width: 38px;
-      height: 38px;
-      border: 1px solid rgba(232,105,10,0.3);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--orange);
-      flex-shrink: 0;
-    }
-    .res-detail-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 0.25rem;
-    }
-    .res-detail-val {
-      font-size: 0.9rem;
-      color: rgba(247,242,234,0.72);
-      line-height: 1.65;
-    }
-    .res-form {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(232,105,10,0.12);
-      padding: 3rem;
-    }
-    .form-group { margin-bottom: 1.5rem; }
-    .form-label {
-      display: block;
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 0.6rem;
-    }
-    .form-input {
-      width: 100%;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(232,105,10,0.15);
-      color: var(--cream);
-      padding: 0.85rem 1rem;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.9rem;
-      outline: none;
-      border-radius: 1px;
-      transition: border-color 0.25s ease, background 0.25s ease;
-    }
-    .form-input:focus {
-      border-color: rgba(232,105,10,0.5);
-      background: rgba(255,255,255,0.055);
-    }
-    .form-input::placeholder { color: rgba(247,242,234,0.22); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .btn-submit {
-      width: 100%;
-      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-2) 100%);
-      color: var(--mahogany);
-      border: none;
-      padding: 1rem;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 1px;
-      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(.34,1.56,.64,1);
-      box-shadow: 0 4px 20px rgba(232,105,10,0.25);
-      margin-top: 0.5rem;
-    }
-    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
-    .btn-submit:active { transform: translateY(0); }
-    .btn-submit:focus-visible { outline: 2px solid var(--orange-2); outline-offset: 3px; }
-
-    /* ─── Footer ─── */
-    footer {
-      background: var(--navy);
-      border-top: 1px solid rgba(232,105,10,0.15);
-      padding: 4.5rem 0 2rem;
-    }
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-    .footer-top {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 4rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(232,105,10,0.1);
-      margin-bottom: 2rem;
-    }
-    .footer-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      font-weight: 300;
-      color: var(--orange-2);
-      letter-spacing: 0.12em;
-      margin-bottom: 1rem;
-    }
-    .footer-tagline {
-      font-size: 0.85rem;
-      line-height: 1.85;
-      color: rgba(247,242,234,0.4);
-      max-width: 260px;
-    }
-    .footer-col-title {
-      font-size: 0.63rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 1.25rem;
-    }
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .footer-links a {
-      font-size: 0.88rem;
-      color: rgba(247,242,234,0.45);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    .footer-links a:hover { color: var(--orange-2); }
-    .footer-links a:focus-visible { outline: 1px solid var(--orange); outline-offset: 2px; }
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.72rem;
-      color: rgba(247,242,234,0.22);
     }
 
     /* ─── Reviews ─── */
@@ -930,9 +617,14 @@
       border: 1px solid rgba(232,105,10,0.1);
       padding: 2rem 2rem 1.75rem;
       position: relative;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .review-card:hover {
+      border-color: rgba(232,105,10,0.25);
+      background: rgba(255,255,255,0.04);
     }
     .review-card::before {
-      content: '"';
+      content: '\201C';
       font-family: 'Cormorant Garamond', serif;
       font-size: 5rem;
       color: rgba(232,105,10,0.12);
@@ -1014,7 +706,9 @@
       display: flex;
       gap: 1.1rem;
       align-items: flex-start;
+      transition: border-color 0.3s ease;
     }
+    .location-card:hover { border-color: rgba(232,105,10,0.28); }
     .location-card-icon {
       width: 42px;
       height: 42px;
@@ -1067,14 +761,6 @@
       height: 480px;
       border: none;
       filter: saturate(0.85) brightness(0.9);
-    }
-
-    /* ─── Reservations CTA grid ─── */
-    .res-cta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: center;
     }
 
     /* ─── Mini Gallery ─── */
@@ -1131,9 +817,11 @@
       padding: 0.8rem 2rem;
       border-radius: 2px;
       transition: opacity 0.2s ease, transform 0.2s cubic-bezier(.34,1.56,.64,1);
+      white-space: nowrap;
     }
     .btn-social:hover { opacity: 0.85; transform: translateY(-2px); }
-    .btn-social:active { transform: translateY(0); }
+    .btn-social:active { transform: translateY(0) scale(0.98); }
+    .btn-social:focus-visible { outline: 2px solid rgba(255,255,255,0.5); outline-offset: 3px; }
     .btn-social-ig {
       background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
       color: #fff;
@@ -1143,47 +831,158 @@
       color: #fff;
     }
 
+    /* ─── Reservations / Contact ─── */
+    #reservations {
+      padding: 9rem 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(40,34,139,0.22) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(232,105,10,0.08) 0%, transparent 60%),
+        var(--navy-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .res-cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .res-icon {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(232,105,10,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+    .res-detail-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.25rem;
+    }
+    .res-detail-val {
+      font-size: 0.9rem;
+      color: rgba(247,242,234,0.72);
+      line-height: 1.65;
+    }
+
+    /* WhatsApp button */
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #fff;
+      background: #25d366;
+      padding: 0.95rem 2rem;
+      border-radius: 2px;
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(.34,1.56,.64,1);
+      box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+      white-space: nowrap;
+    }
+    .btn-whatsapp:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-whatsapp:active { transform: translateY(0) scale(0.98); }
+    .btn-whatsapp:focus-visible { outline: 2px solid #25d366; outline-offset: 3px; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(232,105,10,0.15);
+      padding: 4.5rem 0 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(232,105,10,0.1);
+      margin-bottom: 2rem;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--orange-2);
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+    .footer-tagline {
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: rgba(247,242,234,0.4);
+      max-width: 260px;
+    }
+    .footer-col-title {
+      font-size: 0.63rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .footer-links a {
+      font-size: 0.88rem;
+      color: rgba(247,242,234,0.45);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-links a:hover { color: var(--orange-2); }
+    .footer-links a:focus-visible { outline: 1px solid var(--orange); outline-offset: 2px; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: rgba(247,242,234,0.22);
+    }
+
     /* ─── Responsive ─── */
     @media (max-width: 960px) {
-      .about-grid, .res-grid, .location-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+      .location-grid { grid-template-columns: 1fr; gap: 3.5rem; }
       .reviews-grid { grid-template-columns: 1fr 1fr; }
       .reviews-score-band { flex-direction: column; gap: 2rem; }
       .reviews-divider-vert { width: 70px; height: 1px; }
       .menu-grid { grid-template-columns: 1fr 1fr; }
-      .gallery-mosaic { grid-template-columns: 1fr 1fr; }
-      .g1,.g2,.g3,.g4,.g5,.g6 { grid-column: auto; aspect-ratio: 4/3; }
       nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
       .map-wrap iframe { height: 360px; }
     }
 
     @media (max-width: 700px) {
-      /* Nav: hide pill nav, keep logo + CTA */
       .nav-pills { display: none; }
       nav { grid-template-columns: auto auto; justify-content: space-between; }
       nav .nav-cta { font-size: 0.62rem; padding: 0.5rem 1rem; }
 
-      /* Reduce section padding */
       #menu, #reviews, #location, #mini-gallery { padding: 5rem 0; }
-      #reservations { padding: 5rem 0 !important; }
+      #reservations { padding: 5rem 0; }
       footer { padding: 3.5rem 0 1.5rem; }
 
-      /* Menu 1-col */
       .menu-grid { grid-template-columns: 1fr; }
-
-      /* Reviews 1-col */
       .reviews-grid { grid-template-columns: 1fr; }
       .reviews-score-band { padding: 2rem 1.5rem; }
-
-      /* Location: stack, shorter map */
       .location-grid { gap: 2.5rem; }
       .map-wrap iframe { height: 280px; }
-
-      /* Reservations: single column */
       .res-cta-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 
-      /* Hero mobile: logo/compass higher, content at bottom */
       .hero-logo { width: min(220px, 58vw); height: min(220px, 58vw); }
       .hero-logo-wrap {
         width: min(220px, 58vw);
@@ -1200,11 +999,9 @@
         padding: 0 1.5rem;
       }
 
-      /* Footer */
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
       .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
 
-      /* Mini gallery: tighter */
       .mini-gallery-grid { gap: 4px; }
       .mini-gallery-actions { flex-direction: row; gap: 0.75rem; }
       .btn-social { padding: 0.75rem 1.4rem; font-size: 0.68rem; }
@@ -1212,35 +1009,34 @@
 
     @media (max-width: 480px) {
       .section-title { font-size: clamp(2rem, 8vw, 2.8rem); }
-      #reservations .section-inner > div > div:last-child { padding: 2.5rem 1.75rem !important; }
       .menu-card-body { padding: 1.25rem 1.25rem 1.75rem; }
       .menu-header { margin-bottom: 3rem; }
       .reviews-header { margin-bottom: 3rem; }
       .reviews-score-band { margin-bottom: 3rem; }
       .location-info-cards { gap: 1rem; }
-      .location-card { padding: 1.25rem 1.25rem; }
+      .location-card { padding: 1.25rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ─── NAV ─── -->
+  <!-- NAV -->
   <nav id="navbar">
     <a href="#hero" class="nav-logo-wrap">
-      <img src="logo.png" alt="Boga Boga Restaurant" class="nav-logo-img"
+      <img src="images/LOGO PNG.png" alt="Boga Boga Restaurant" class="nav-logo-img"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
       <span class="nav-logo-text">BOGA<br>BOGA</span>
     </a>
     <ul class="nav-pills">
       <li><a href="#hero" class="active">Inicio</a></li>
-      <li><a href="#menu">Menú</a></li>
-      <li><a href="#location">Ubicación</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#location">Ubicacion</a></li>
       <li><a href="#reservations">Contacto</a></li>
     </ul>
-    <a href="#reservations" class="nav-cta">Reservar Mesa</a>
+    <a href="tel:8094720849" class="nav-cta">Reservar Mesa</a>
   </nav>
 
-  <!-- ─── HERO ─── -->
+  <!-- HERO -->
   <section id="hero">
     <div class="hero-bg-img"></div>
     <div class="hero-overlay"></div>
@@ -1248,11 +1044,11 @@
 
     <!-- Logo centered in compass -->
     <div class="hero-logo-wrap">
-      <img src="images/BogaBogaLOGO.jpg" alt="Boga Boga Restaurant" class="hero-logo" />
+      <img src="images/BogaBogaLOGO.jpg" alt="Boga Boga Restaurant" class="hero-logo" loading="eager" />
     </div>
 
     <!-- Compass rose -->
-    <svg class="compass-rose" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <svg class="compass-rose" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="100" cy="100" r="96" fill="none" stroke="#c9a84c" stroke-width="0.6"/>
       <circle cx="100" cy="100" r="78" fill="none" stroke="#c9a84c" stroke-width="0.4"/>
       <circle cx="100" cy="100" r="58" fill="none" stroke="#c9a84c" stroke-width="0.4"/>
@@ -1266,7 +1062,6 @@
       <polygon points="6,100 28,96 28,104" fill="#c9a84c" opacity="0.6"/>
       <polygon points="194,100 172,96 172,104" fill="#c9a84c" opacity="0.6"/>
       <circle cx="100" cy="100" r="5" fill="none" stroke="#c9a84c" stroke-width="0.6"/>
-      <!-- degree marks -->
       <g stroke="#c9a84c" stroke-width="0.3">
         <line x1="100" y1="4" x2="100" y2="12"/>
         <line x1="100" y1="188" x2="100" y2="196"/>
@@ -1275,212 +1070,212 @@
       </g>
     </svg>
 
-    <div class="hero-content">
-      <p class="hero-subtitle">Especialidad en comida Española e Internacional "Desde 1975"</p>
+    <div class="hero-content hero-anim">
+      <p class="hero-eyebrow-el">Especialidad Espanola e Internacional</p>
+      <p class="hero-subtitle">Desde 1975, en el corazon de Santo Domingo</p>
       <div class="hero-actions">
-        <a href="#menu" class="btn-outline">Ver Menú</a>
-        <a href="#reservations" class="btn-primary">Hacer Reserva</a>
+        <a href="#menu" class="btn-outline">Ver Menu</a>
+        <a href="tel:8094720849" class="btn-primary">Reservar Mesa</a>
       </div>
     </div>
 
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="scroll-line"></div>
+    </div>
   </section>
 
-
-
-  <!-- ─── MENU ─── -->
+  <!-- MENU -->
   <section id="menu">
     <div class="section-inner">
       <div class="menu-header">
         <span class="section-tag">Del Chef</span>
         <h2 class="section-title">Nuestros <em>Favoritos</em></h2>
-        <div class="brass-rule" style="max-width:300px;margin:1.5rem auto 0;">Selección del día</div>
+        <div class="brass-rule" style="max-width:300px;margin:1.5rem auto 0;">Seleccion del dia</div>
       </div>
 
       <div class="menu-grid">
 
-        <div class="menu-card">
+        <article class="menu-card">
           <div class="menu-card-img">
             <img src="images/Platos/Paella.jpg" alt="Paella de Mariscos" loading="lazy" />
           </div>
           <div class="menu-card-body">
             <p class="menu-card-tag">Para compartir</p>
             <h3 class="menu-card-name">Paella de Mariscos</h3>
-            <p class="menu-card-desc">Arroz bomba al estilo Boga con langostinos, mejillones, calamares y almejas, todo cocinado en un fondo de azafrán y mariscos frescos. Un plato pensado para compartir y nunca olvidar.</p>
+            <p class="menu-card-desc">Arroz bomba al estilo Boga con langostinos, mejillones, calamares y almejas, todo cocinado en un fondo de azafran y mariscos frescos. Un plato pensado para compartir y nunca olvidar.</p>
           </div>
-        </div>
+        </article>
 
-        <div class="menu-card">
+        <article class="menu-card">
           <div class="menu-card-img">
-            <img src="images/Platos/Tartar-de-Atun.jpg" alt="Tartar de Atún" loading="lazy" style="object-position: center 40%;" />
+            <img src="images/Platos/Tartar-de-Atun.jpg" alt="Tartar de Atun" loading="lazy" style="object-position: center 40%;" />
           </div>
           <div class="menu-card-body">
             <p class="menu-card-tag">Entrada</p>
-            <h3 class="menu-card-name">Tartar de Atún</h3>
-            <p class="menu-card-desc">Atún fresco cortado a cuchillo sobre base de aguacate, cubierto de sésamo negro y blanco con un toque de alcaparras y microgreens. Ligero, fresco y con sabor a mar.</p>
+            <h3 class="menu-card-name">Tartar de Atun</h3>
+            <p class="menu-card-desc">Atun fresco cortado a cuchillo sobre base de aguacate, cubierto de sesamo negro y blanco con un toque de alcaparras y microgreens. Ligero, fresco y con sabor a mar.</p>
           </div>
-        </div>
+        </article>
 
-        <div class="menu-card">
+        <article class="menu-card">
           <div class="menu-card-img">
-            <img src="images/Platos/Carpaccio-de-Res-con-Parmesano.jpg" alt="Carpaccio de Res" loading="lazy" style="object-position: center 70%;" />
+            <img src="images/Platos/Carpaccio-de-Res-con-Parmesano.jpg" alt="Carpaccio de Res con Parmesano" loading="lazy" style="object-position: center 70%;" />
           </div>
           <div class="menu-card-body">
             <p class="menu-card-tag">Entrada</p>
             <h3 class="menu-card-name">Carpaccio de Res</h3>
-            <p class="menu-card-desc">Carpaccio de res con parmesano, rúcula y champiñones frescos: una explosión de sabor en cada lámina. Perfecto para quienes disfrutan la elegancia de lo simple.</p>
+            <p class="menu-card-desc">Carpaccio de res con parmesano, rucula y champinones frescos: una explosion de sabor en cada lamina. Perfecto para quienes disfrutan la elegancia de lo simple.</p>
           </div>
-        </div>
+        </article>
 
       </div>
 
       <div style="text-align:center;margin-top:3rem;">
-        <a href="#reservations" class="btn-outline">Ver menú completo</a>
+        <a href="tel:8094720849" class="btn-outline">Consultar menu completo</a>
       </div>
     </div>
   </section>
 
-
-  <!-- ─── REVIEWS ─── -->
+  <!-- REVIEWS -->
   <section id="reviews">
     <div class="section-inner">
       <div class="reviews-header">
         <span class="section-tag">Lo que dicen</span>
         <h2 class="section-title">Nuestros <em>Clientes</em></h2>
-        <div class="brass-rule" style="max-width:280px;margin:1.5rem auto 0;">Reseñas verificadas</div>
+        <div class="brass-rule" style="max-width:280px;margin:1.5rem auto 0;">Resenas verificadas</div>
       </div>
 
-      <!-- Score band -->
       <div class="reviews-score-band">
         <div style="text-align:center;">
           <div class="reviews-big-score">4.7<span>/5</span></div>
           <div class="reviews-stars">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.55;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="opacity:0.55;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <div class="reviews-total">3,000+ reseñas en Google</div>
+          <div class="reviews-total">3,000+ resenas en Google</div>
         </div>
-        <div class="reviews-divider-vert"></div>
+        <div class="reviews-divider-vert" aria-hidden="true"></div>
         <div class="reviews-platform-col">
           <div class="reviews-platform-name">Facebook</div>
           <div class="reviews-platform-score">4.8</div>
           <div class="reviews-platform-sub">122 votos</div>
         </div>
-        <div class="reviews-divider-vert"></div>
+        <div class="reviews-divider-vert" aria-hidden="true"></div>
         <div class="reviews-platform-col">
           <div class="reviews-platform-name">Google</div>
           <div class="reviews-platform-score">4.7</div>
-          <div class="reviews-platform-sub">3,000+ reseñas</div>
+          <div class="reviews-platform-sub">3,000+ resenas</div>
         </div>
       </div>
 
-      <!-- Review cards -->
       <div class="reviews-grid">
 
-        <div class="review-card">
-          <div class="review-card-stars">
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <article class="review-card">
+          <div class="review-card-stars" aria-label="5 estrellas">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <p class="review-card-text">Una paella de mariscos única y espectacular, sin olvidar el pulpo a la parrilla y el carpaccio de salmón... con la excepción de los calamares fritos y el ceviche, todo lo demás fue excepcional y delicioso.</p>
+          <p class="review-card-text">Una paella de mariscos unica y espectacular, sin olvidar el pulpo a la parrilla y el carpaccio de salmon... con la excepcion de los calamares fritos y el ceviche, todo lo demas fue excepcional y delicioso.</p>
           <div class="review-card-author">
-            <div class="review-avatar">K</div>
+            <div class="review-avatar" aria-hidden="true">K</div>
             <div>
-              <div class="review-name">Karl de Borbón</div>
-              <div class="review-source">Google · Guía local · 407 reseñas</div>
+              <div class="review-name">Karl de Borbon</div>
+              <div class="review-source">Google - Guia local - 407 resenas</div>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="review-card">
-          <div class="review-card-stars">
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <article class="review-card">
+          <div class="review-card-stars" aria-label="5 estrellas">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <p class="review-card-text">Un restaurante de estilo español. Pedimos ceviche y carpaccio de bacalao como entrantes. El carpaccio estaba riquísimo. Disfrutamos de la paella de carne y la paella de marisco. Ambas estaban muy buenas y sobró bastante para llevar a casa.</p>
+          <p class="review-card-text">Un restaurante de estilo espanol. Pedimos ceviche y carpaccio de bacalao como entrantes. El carpaccio estaba riquisimo. Disfrutamos de la paella de carne y la paella de marisco. Ambas estaban muy buenas y sobro bastante para llevar a casa.</p>
           <div class="review-card-author">
-            <div class="review-avatar">B</div>
+            <div class="review-avatar" aria-hidden="true">B</div>
             <div>
               <div class="review-name">Brad Bullough</div>
-              <div class="review-source">Google · Guía local · 401 reseñas</div>
+              <div class="review-source">Google - Guia local - 401 resenas</div>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="review-card">
-          <div class="review-card-stars">
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <article class="review-card">
+          <div class="review-card-stars" aria-label="5 estrellas">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </div>
-          <p class="review-card-text">Boga Boga fue fantástico en todos los sentidos. Fuimos allí para el cumpleaños de mi prometida y el servicio fue excelente, lo que se espera de un restaurante de cinco estrellas. Cada plato que pedimos (alcachofas, jamón, champiñones y tinta de calamar) estaba delicioso.</p>
+          <p class="review-card-text">Boga Boga fue fantastico en todos los sentidos. Fuimos alli para el cumpleanos de mi prometida y el servicio fue excelente, lo que se espera de un restaurante de cinco estrellas. Cada plato que pedimos estaba delicioso.</p>
           <div class="review-card-author">
-            <div class="review-avatar">C</div>
+            <div class="review-avatar" aria-hidden="true">C</div>
             <div>
               <div class="review-name">Colin Clayton</div>
-              <div class="review-source">Google · 5 reseñas</div>
+              <div class="review-source">Google - 5 resenas</div>
             </div>
           </div>
-        </div>
+        </article>
 
       </div>
     </div>
   </section>
 
-  <!-- ─── LOCATION ─── -->
+  <!-- LOCATION -->
   <section id="location">
     <div class="section-inner">
       <div class="location-grid">
 
         <div>
-          <span class="section-tag">Encuéntranos</span>
-          <h2 class="section-title">Visítanos en <em>Santo Domingo</em></h2>
+          <span class="section-tag">Encuentranos</span>
+          <h2 class="section-title">Visitanos en <em>Santo Domingo</em></h2>
           <div class="brass-divider"></div>
 
           <div class="location-info-cards">
 
             <div class="location-card">
-              <div class="location-card-icon">
+              <div class="location-card-icon" aria-hidden="true">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
               <div>
-                <div class="location-card-label">Dirección</div>
+                <div class="location-card-label">Direccion</div>
                 <div class="location-card-val">
-                  Ave. Bolivar #203, La Esperilla, Santo Domingo, República Dominicana 20808<br>
-                  <a href="https://maps.google.com/?q=Boga+Boga+Santo+Domingo" target="_blank" rel="noopener">Ver en Google Maps →</a>
+                  Ave. Bolivar #203, La Esperilla<br>Santo Domingo, Republica Dominicana 20808<br>
+                  <a href="https://maps.google.com/?q=Boga+Boga+Santo+Domingo" target="_blank" rel="noopener">Ver en Google Maps</a>
                 </div>
               </div>
             </div>
 
             <div class="location-card">
-              <div class="location-card-icon">
+              <div class="location-card-icon" aria-hidden="true">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               </div>
               <div>
                 <div class="location-card-label">Horario</div>
-                <div class="location-card-val">
-                  Lunes – Domingo: 11:00 AM – 11:00 PM
-                </div>
+                <div class="location-card-val">Lunes a Domingo: 11:00 AM - 11:00 PM</div>
               </div>
             </div>
 
             <div class="location-card">
-              <div class="location-card-icon">
+              <div class="location-card-icon" aria-hidden="true">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 1.18 2 2 0 013.99 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
               </div>
               <div>
-                <div class="location-card-label">Teléfono</div>
-                <div class="location-card-val">809-472-0849<br>809-472-0950</div>
+                <div class="location-card-label">Telefono</div>
+                <div class="location-card-val">
+                  <a href="tel:8094720849" style="color:var(--orange-2);text-decoration:none;font-size:0.9rem;">809-472-0849</a><br>
+                  <a href="tel:8094720950" style="color:rgba(247,242,234,0.5);text-decoration:none;font-size:0.85rem;">809-472-0950</a>
+                </div>
               </div>
             </div>
 
@@ -1493,7 +1288,7 @@
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Boga Boga ubicación en Google Maps">
+            title="Boga Boga ubicacion en Google Maps">
           </iframe>
         </div>
 
@@ -1501,44 +1296,44 @@
     </div>
   </section>
 
-  <!-- ─── MINI GALLERY ─── -->
+  <!-- MINI GALLERY -->
   <section id="mini-gallery">
     <div class="section-inner">
       <div class="mini-gallery-header">
-        <span class="section-tag">Síguenos</span>
+        <span class="section-tag">Siguenos</span>
         <h2 class="section-title">Boga Boga en <em>Redes</em></h2>
       </div>
       <div class="mini-gallery-grid">
         <div class="mini-gallery-item">
-          <img src="images/Platos/2-Paellas.jpg" alt="Boga Boga" loading="lazy" />
+          <img src="images/Platos/2-Paellas.jpg" alt="Paellas en Boga Boga" loading="lazy" />
         </div>
         <div class="mini-gallery-item">
-          <img src="images/Platos/4-Platos.jpg" alt="Boga Boga" loading="lazy" />
+          <img src="images/Platos/4-Platos.jpg" alt="Variedad de platos en Boga Boga" loading="lazy" />
         </div>
         <div class="mini-gallery-item">
-          <img src="images/Platos/EnsaladaCesar.jpg" alt="Boga Boga" loading="lazy" />
+          <img src="images/Platos/EnsaladaCesar.jpg" alt="Ensalada Cesar en Boga Boga" loading="lazy" />
         </div>
         <div class="mini-gallery-item">
-          <img src="images/Platos/Paella.jpg" alt="Boga Boga" loading="lazy" />
+          <img src="images/Platos/Paella.jpg" alt="Paella de mariscos en Boga Boga" loading="lazy" />
         </div>
       </div>
       <div class="mini-gallery-actions">
         <a href="https://www.instagram.com/bogabogard/" target="_blank" rel="noopener" class="btn-social btn-social-ig">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           Instagram
         </a>
         <a href="https://www.facebook.com/RestaurantBogaBoga/" target="_blank" rel="noopener" class="btn-social btn-social-fb">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
           Facebook
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ─── RESERVATIONS ─── -->
-  <section id="reservations" style="padding:9rem 0;background:radial-gradient(ellipse 80% 60% at 50% 100%, rgba(40,34,139,0.22) 0%, transparent 65%), radial-gradient(ellipse 60% 40% at 80% 20%, rgba(232,105,10,0.08) 0%, transparent 60%), var(--navy-2);position:relative;overflow:hidden;">
+  <!-- RESERVATIONS / CONTACT -->
+  <section id="reservations">
     <!-- decorative compass watermark -->
-    <svg style="position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:520px;height:520px;opacity:0.03;pointer-events:none;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <svg style="position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:520px;height:520px;opacity:0.03;pointer-events:none;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="100" cy="100" r="96" fill="none" stroke="#e8690a" stroke-width="0.6"/>
       <circle cx="100" cy="100" r="78" fill="none" stroke="#e8690a" stroke-width="0.4"/>
       <circle cx="100" cy="100" r="58" fill="none" stroke="#e8690a" stroke-width="0.4"/>
@@ -1560,55 +1355,57 @@
           <span class="section-tag">Reservaciones</span>
           <h2 class="section-title" style="font-size:clamp(2.8rem,5vw,4.2rem);">Una mesa,<br>una <em>experiencia</em></h2>
           <div class="brass-divider"></div>
-          <p style="font-size:1rem;line-height:1.9;color:rgba(247,242,234,0.6);margin-bottom:2.5rem;">En Boga Boga cada detalle cuenta. Nuestras reservas se realizan directamente por teléfono — porque preferimos hablar con usted y preparar su visita como se merece.</p>
+          <p style="font-size:1rem;line-height:1.9;color:rgba(247,242,234,0.6);margin-bottom:2.5rem;">En Boga Boga cada detalle cuenta. Nuestras reservas se realizan directamente por telefono, porque preferimos hablar con usted y preparar su visita como se merece.</p>
 
           <div style="display:flex;flex-direction:column;gap:1.5rem;">
-
             <div style="display:flex;align-items:flex-start;gap:1rem;">
-              <div class="res-icon">
+              <div class="res-icon" aria-hidden="true">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
               <div>
-                <div class="res-detail-label">Ubicación</div>
-                <div class="res-detail-val">Ave. Bolivar #203, La Esperilla<br>Santo Domingo, República Dominicana</div>
+                <div class="res-detail-label">Ubicacion</div>
+                <div class="res-detail-val">Ave. Bolivar #203, La Esperilla<br>Santo Domingo, Republica Dominicana</div>
               </div>
             </div>
-
           </div>
         </div>
 
         <!-- Right: CTA card -->
         <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(232,105,10,0.18);padding:3.5rem;text-align:center;">
           <div style="font-family:'Cormorant Garamond',serif;font-size:0.8rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--orange);margin-bottom:1.5rem;">Llame y reserve</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:300;color:var(--cream);line-height:1.2;margin-bottom:0.5rem;">809-472-0849</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:300;color:rgba(247,242,234,0.5);margin-bottom:2.5rem;">809-472-0950</div>
-          <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,var(--orange),transparent);margin:0 auto 2.5rem;"></div>
-          <p style="font-size:0.85rem;line-height:1.8;color:rgba(247,242,234,0.85);margin-bottom:2.5rem;">Abierto todos los días<br>11:00 AM – 11:00 PM</p>
+          <a href="tel:8094720849" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:300;color:var(--cream);line-height:1.2;margin-bottom:0.5rem;display:block;text-decoration:none;transition:color 0.2s ease;" onmouseover="this.style.color='var(--orange-2)'" onmouseout="this.style.color='var(--cream)'">809-472-0849</a>
+          <a href="tel:8094720950" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:300;color:rgba(247,242,234,0.5);margin-bottom:2.5rem;display:block;text-decoration:none;">809-472-0950</a>
+          <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,var(--orange),transparent);margin:0 auto 2rem;"></div>
+          <p style="font-size:0.85rem;line-height:1.8;color:rgba(247,242,234,0.85);margin-bottom:2rem;">Abierto todos los dias<br>11:00 AM - 11:00 PM</p>
+          <a href="https://wa.me/18094720849?text=Hola%2C%20quisiera%20hacer%20una%20reservacion%20en%20Boga%20Boga." target="_blank" rel="noopener" class="btn-whatsapp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Escribir por WhatsApp
+          </a>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ─── FOOTER ─── -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-top">
         <div>
           <div class="footer-brand">BOGA BOGA</div>
-          <p class="footer-tagline">Especialidad en comida Española e Internacional "Desde 1975"</p>
+          <p class="footer-tagline">Especialidad en comida Espanola e Internacional desde 1975.</p>
         </div>
         <div>
-          <p class="footer-col-title">Navegación</p>
+          <p class="footer-col-title">Navegacion</p>
           <ul class="footer-links">
             <li><a href="#hero">Inicio</a></li>
-            <li><a href="#menu">Menú</a></li>
-            <li><a href="#location">Ubicación</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#location">Ubicacion</a></li>
             <li><a href="#reservations">Contacto</a></li>
           </ul>
         </div>
         <div>
-          <p class="footer-col-title">Síguenos</p>
+          <p class="footer-col-title">Siguenos</p>
           <ul class="footer-links">
             <li><a href="https://www.instagram.com/bogabogard/" target="_blank" rel="noopener">Instagram</a></li>
             <li><a href="https://www.facebook.com/RestaurantBogaBoga/" target="_blank" rel="noopener">Facebook</a></li>
@@ -1622,11 +1419,18 @@
   </footer>
 
   <script>
-    // Nav scroll
+    // Nav scroll behavior
     const navbar = document.getElementById('navbar');
+    let ticking = false;
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-      updateActivePill();
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          navbar.classList.toggle('scrolled', window.scrollY > 60);
+          updateActivePill();
+          ticking = false;
+        });
+        ticking = true;
+      }
     }, { passive: true });
 
     // Smooth scroll
@@ -1636,30 +1440,23 @@
         const target = a.getAttribute('href');
         const el = document.querySelector(target);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-        // Manually set active
         document.querySelectorAll('.nav-pills a').forEach(p => p.classList.remove('active'));
         const pill = document.querySelector(`.nav-pills a[href="${target}"]`);
         if (pill) pill.classList.add('active');
       });
     });
 
-    // Active pill on scroll
+    // Active pill tracking
+    const sections = ['hero', 'menu', 'reviews', 'location', 'mini-gallery', 'reservations'];
     function updateActivePill() {
-      const sections = [
-        { id: 'hero', pill: '#hero' },
-        { id: 'menu', pill: '#menu' },
-        { id: 'reviews', pill: '#reviews' },
-        { id: 'location', pill: '#location' },
-        { id: 'reservations', pill: '#reservations' },
-      ];
-      const pills = document.querySelectorAll('.nav-pills a');
-      let current = '#hero';
-      sections.forEach(s => {
-        const el = document.getElementById(s.id);
-        if (el && window.scrollY >= el.offsetTop - 200) current = '#' + s.id;
+      let current = 'hero';
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 200) current = id;
       });
-      pills.forEach(p => {
-        p.classList.toggle('active', p.getAttribute('href') === current);
+      document.querySelectorAll('.nav-pills a').forEach(p => {
+        const href = p.getAttribute('href').slice(1);
+        p.classList.toggle('active', href === current);
       });
     }
     updateActivePill();
